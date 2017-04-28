@@ -27,8 +27,11 @@ L3.Crm = {
 			/* Concatena valores de campos e textos e como output define o valor de um campo */
 			concatenateString: function (arrayStringFields, destinyFieldName) {
 
-				var resultString = "";
-				var arrayFields = arrayStringFields.split(",");
+				if(!arrayStringFields)
+					return;
+
+				var resultString = '';
+				var arrayFields = arrayStringFields.toLowerCase().split(',');
 
 				for (var i = 0; i < arrayFields.length; i++) {
 
@@ -50,7 +53,7 @@ L3.Crm = {
 						}
 						else {
 
-							resultString += "";
+							resultString += '';
 						}
 					}
 					else {
@@ -61,21 +64,24 @@ L3.Crm = {
 				var attrDestinyFieldName = Xrm.Page.getAttribute(destinyFieldName);
 
 				if (!attrDestinyFieldName) {
-					alert("O campo '" + destinyFieldName + "' não foi encontrado no formulário.");
+					alert('O campo "' + destinyFieldName + '" não foi encontrado no formulário.');
 					return;
 				}
 
 				if (attrDestinyFieldName.getValue() != resultString) {
 
 					attrDestinyFieldName.setValue(resultString.trim());
-					attrDestinyFieldName.setSubmitMode("always");
+					attrDestinyFieldName.setSubmitMode('always');
 				}
 			},
 
 			/* Limpa o valor dos campos informados em um formulário  */
 			clearFields: function (arrayStringFields) {
 
-				var arrayFields = arrayStringFields.split(",");
+				if(!arrayStringFields)
+					return;
+
+				var arrayFields = arrayStringFields.toLowerCase().split(',');
 
 				for (var i = 0; i < arrayFields.length; i++) {
 
@@ -89,12 +95,12 @@ L3.Crm = {
 			/* Valida e formata o valor do campo conforme o formato informado */
 			parseField: function (fieldName, format, destinyFieldName, customMessage) {
 
-				var errorMessage = customMessage || "O formato não é compatível com o valor fornecido.";
+				var errorMessage = customMessage || 'O formato não é compatível com o valor fornecido.';
 
 				var attrFieldName = Xrm.Page.getAttribute(fieldName);
 
 				if (!attrFieldName && !attrFieldName.getValue())
-					return "";
+					return;
 
 				var value = attrFieldName.getValue();
 
