@@ -95,9 +95,12 @@ L3.Crm = {
 			/* Valida e formata o valor do campo conforme o formato informado */
 			parseField: function (fieldName, format, destinyFieldName, customMessage) {
 
+				if(!fieldName)
+					return;
+
 				var errorMessage = customMessage || 'O formato não é compatível com o valor fornecido.';
 
-				var attrFieldName = Xrm.Page.getAttribute(fieldName);
+				var attrFieldName = Xrm.Page.getAttribute(fieldName.toLowerCase());
 
 				if (!attrFieldName && !attrFieldName.getValue())
 					return;
